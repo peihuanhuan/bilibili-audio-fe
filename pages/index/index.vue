@@ -3,17 +3,18 @@
 		<uni-card class="example-body" :isFull="true">
 			<text style="font-weight:blod">说明：\n\n</text>
 			<text>1. 输入分享链接、或完整视频链接即可。多个视频，链接间换行即可。\n\n</text>
-			<text>2. 任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】两字获取下载链接。点击服务通知即可进入公众号。\n\n</text>
-			<text>3. 长时间未完成，更多需求或意见，直接在公众号内留言。</text>
+			<text>2. 任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取下载链接。点击服务通知进入公众号。</text>
 			<br></br>
-			<el-input type="textarea" :autosize="{ minRows: 16, maxRows: 40}" placeholder="这是个🌰 有其他内容都能解析到~
+			<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 40}" placeholder="这是个🌰 链接完整就能解析到~
 			
-【【竹笛】左手指月 来了，挑战笛子音域极限 《香蜜沉沉烬如霜》片尾曲 不好听。。。 UP主去跳兔子舞！-哔哩哔哩】 https://b23.tv/W3i97LU
+【【竹笛】左手指月 来了，挑战笛子音域极限 《香蜜沉沉烬如霜》片尾曲-哔哩哔哩】 https://b23.tv/W3i97LU
 
-第二个视频👇👇👇
+( 第二个视频👇👇👇 )
 https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=12490260815654528041
  
-一次最多五个视频!" v-model="value">
+一次最多五个视频
+
+长时间未完成、更多意见，请在公众号「阿烫」内留言。" v-model="value">
 			</el-input>
 			
 			<div style="text-align:center; padding-top: 30px; padding-bottom: 200px;">
@@ -33,7 +34,6 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 					</style>
 				</script>
 				<script type="text/wxtag-template">
-					<!-- <el-button type="primary" class="subscribe-btn">提交心愿单</el-button> -->
 					<button class="subscribe-btn">提交心愿单</button>
 				</script>
 			</wx-open-subscribe>
