@@ -1,20 +1,17 @@
 <template>
 	<view>
 		<uni-card class="example-body" :isFull="true">
-			<text style="font-weight:blod">说明：\n\n</text>
-			<text>1. 输入分享链接、或完整视频链接即可。多个视频，链接间换行即可。\n\n</text>
-			<text>2. 任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取下载链接。点击服务通知进入公众号。</text>
-			<br></br>
-			<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 40}" placeholder="这是个🌰 链接完整就能解析到~
 			
-【【竹笛】左手指月 来了，挑战笛子音域极限 《香蜜沉沉烬如霜》片尾曲-哔哩哔哩】 https://b23.tv/W3i97LU
-
-( 第二个视频👇👇👇 )
-https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=12490260815654528041
- 
-一次最多五个视频
-
-长时间未完成、更多意见，请在公众号「阿烫」内留言。" v-model="value">
+			<text style="font-weight:blod">1. 须知：\n\n</text>
+			<text>任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取下载链接。点击服务通知进入公众号。\n\n</text>
+			<text style="font-weight:blod">2. 模式选择：\n\n</text>
+			<el-radio-group v-model="type" @change="typeChange">
+			    <el-radio label="1" >自由模式</el-radio>
+			    <el-radio label="2" >多p稿件</el-radio>
+				<el-radio label="3"  disabled>up主模式</el-radio>
+			</el-radio-group>
+			<br></br>
+			<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 40}" :placeholder="hint" v-model="value">
 			</el-input>
 			
 			<div style="text-align:center; padding-top: 30px; padding-bottom: 200px;">
@@ -53,6 +50,27 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 	export default {
 		data() {
 			return {
+				type: '1',
+				hint: '',
+				minrows: 18,
+				type1Hint: `一般使用这个模式。在此输入分享链接，或完整视频链接。
+
+支持多个视频，链接间换行即可。
+			
+举个🌰,导出这二位的音频: 👇👇👇 
+
+【【鏡音リン】直到我舍弃梦想成为大人【Earthy X6】-哔哩哔哩】 https://b23.tv/IOfEqZw
+
+【【竹笛】左手指月 来了，挑战笛子音域极限 《香蜜沉沉烬如霜》片尾曲-哔哩哔哩】 https://b23.tv/W3i97LU
+
+这样就行了。
+
+长时间未完成、更多意见，请在公众号「阿烫」内留言。`,
+				type2Hint: `使用该模式，可以将一个投稿的所有 P 的音频一次性导出，打包成压缩包。
+
+一次只支持一个投稿视频，时间可能较长。
+
+更多意见，请在公众号「阿烫」内留言。`,
 				value: '',
 				code: ''
 			}
@@ -64,9 +82,11 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 				console.log('失败了 ', e.detail);
 			});
 		},
-
+		created(){
+		
+		},
 		onLoad() {
-
+			this.hint = this.type1Hint	
 			let url = window.encodeURIComponent(location.href.split('#')[0])
 
 			var requestUrl =
@@ -95,8 +115,6 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 			});
 
 
-
-
 			var token = this.$cookies.get("token")
 			if (token != null) {
 				return;
@@ -112,6 +130,14 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 
 		},
 		methods: {
+			typeChange(type) {
+				if(type == 1) {
+					this.hint = this.type1Hint
+				}
+				if(type == 2) {
+					this.hint = this.type2Hint
+				}
+			},
 			submita(e) {
 				let subscribeDetails = JSON.parse(e.detail.subscribeDetails); // 全部的模板
 							
@@ -123,7 +149,7 @@ https://www.bilibili.com/video/BV19T4y1c7op?from=search&seid=1249026081565452804
 				console.log(`status: ${status}`)
 				if(status.status == 'accept') {
 					this.$message.info({message: '正在解析任务中，请稍后！', duration:8000});
-					this.$ajax.post({url: 'bilibili/audio', data: {"data": this.value}}).then((response) => {
+					this.$ajax.post({url: 'bilibili/audio', data: {"data": this.value, "type": this.type}}).then((response) => {
 						console.log("请求任务", response)
 						if (response.data != null) {
 							this.value = ''
