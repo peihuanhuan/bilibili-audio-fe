@@ -11,7 +11,9 @@ const instance = ajax.create({
 instance.interceptors.request.use(
   config => {
 	const token = Vue.$cookies.get("token")
-	config.header.common["Authorization"] = 'Bearer ' + token
+	if(token != null) {
+		config.header.common["Authorization"] = 'Bearer ' + token	
+	}
     return config
   },
   error => {
