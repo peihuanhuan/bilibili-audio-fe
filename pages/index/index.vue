@@ -5,6 +5,10 @@
 			<text style="font-weight:blod">1. 须知：\n\n</text>
 			<text>任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取下载链接。点击服务通知进入公众号。\n\n</text>
 			<text style="font-weight:blod">2. 模式选择：\n\n</text>
+			<el-radio-group v-model="outputType">
+			    <el-radio label="0" >仅提取音频</el-radio>
+			    <el-radio label="1" >完整视频</el-radio>
+			</el-radio-group>
 			<el-radio-group v-model="type" @change="typeChange">
 			    <el-radio label="1" >自由模式</el-radio>
 			    <el-radio label="2" >多p稿件</el-radio>
@@ -50,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				outputType: '0',
 				type: '1',
 				hint: '',
 				minrows: 18,
@@ -149,7 +154,7 @@
 				console.log(`status: ${status}`)
 				if(status.status == 'accept') {
 					this.$message.info({message: '正在解析任务中，请稍后！', duration:8000});
-					this.$ajax.post({url: 'bilibili/audio', data: {"data": this.value, "type": this.type}}).then((response) => {
+					this.$ajax.post({url: 'bilibili/audio', data: {"data": this.value, "type": this.type, "outputType": this.outputType}}).then((response) => {
 						console.log("请求任务", response)
 						if (response.data != null) {
 							this.value = ''
