@@ -9,6 +9,7 @@
 			    <el-radio label="0" >仅提取音频</el-radio>
 			    <el-radio label="1" >完整视频</el-radio>
 			</el-radio-group>
+			<br></br>
 			<el-radio-group v-model="type" @change="typeChange">
 			    <el-radio label="1" >自由模式</el-radio>
 			    <el-radio label="2" >多p稿件</el-radio>
@@ -107,15 +108,18 @@
 					openTagList: ['wx-open-subscribe', 'wx-open-launch-app', 'wx-open-subscribe-dialog']
 				});
 			}).catch((e) => {
-
+				this.$message.error(`获取jsapi失败${e}`);
 			})
 
 			jweixin.ready(() => {
+				// window.alert(`配置jsapi失败${res}`) 
 				console.log("ready");
 				//config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中
 			});
 			jweixin.error(res => {
 				console.info("开始error", res);
+				window.alert(`配置jweixin ready ${res}`) 
+				this.$message.error(`配置jsapi失败${res}`);
 				// config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名
 			});
 
@@ -160,10 +164,17 @@
 							this.value = ''
 							this.$message.success({message: `解析到${response.data}个视频，开始处理！请关注服务通知`, duration:8000});
 						} else {
-							this.$message.error(response.msg);
+							if(response.code == 702 || response.code == 703) {
+								// 认证错误
+								this.$cookies.remove("token")
+								this.$message.error('认证失效，请刷新页面（记得先保存下内容）');
+							} else {
+								this.$message.error(response.msg);
+							}
+							
 						}
 					}).catch((e) => {
-					
+						
 					})
 
 				}
