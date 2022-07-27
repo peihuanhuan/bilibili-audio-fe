@@ -4,7 +4,7 @@
 			
 			<text style="font-weight:blod">1. 须知：\n\n</text>
 			<!-- <text>任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取网盘链接。点击服务通知进入公众号。\n\n</text> -->
-			<text>你所遇到的 99% 的问题文章中都有解答，请先阅读：</text>
+			<text>你所遇到的问题，99% 在文章中都有解答，请先认真阅读：</text>
 			<a target="_blank" href = "https://mp.weixin.qq.com/s/GTQTcUzQ8tcWNlubEC1D3A">FAQ答疑</a>
 			<text>\n\n</text>
 			<text style="font-weight:blod">2. 模式选择：\n\n</text>
