@@ -62,7 +62,7 @@
 				type: '1',
 				hint: '',
 				minrows: 18,
-				type1Hint: `一般使用这个模式。在此输入分享链接，或完整视频链接。
+				type1Hint: `.一般使用这个模式。在此输入分享链接，或完整视频链接。
 
 支持多个视频，链接间换行即可。
 			
@@ -88,6 +88,8 @@
 			var btn = document.getElementById('subscribe-btn');
 			btn.addEventListener('success', this.submita);
 			btn.addEventListener('error', function(e) {
+				window.alert(`提交失败 ${e.detail}`)
+				this.$message.error(`提交失败 ${e.detail}`);
 				console.log('失败了 ', e.detail);
 			});
 		},
@@ -180,6 +182,8 @@
 						
 					})
 
+				} else {
+					this.$message.success({message: `没有接受消息提醒：${status.status}`, duration:8000});
 				}
 			},
 			jumpAuthUrl() {
