@@ -16,7 +16,7 @@
 			<el-radio-group v-model="type" @change="typeChange">
 			    <el-radio label="1" >自由模式</el-radio>
 			    <el-radio label="2" >多p稿件</el-radio>
-				<el-radio label="3"  disabled>up主模式</el-radio>
+				<el-radio label="3" >up主模式</el-radio>
 			</el-radio-group>
 			<br></br>
 			<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 40}" :placeholder="hint" v-model="value">
@@ -80,6 +80,11 @@
 一次只支持一个投稿视频，时间可能较长。
 
 更多意见，请在公众号「阿烫」内留言。`,
+				type3Hint: `up主模式限时测试中，能获取up主投稿的视频音频。
+				
+将个人主页的分享链接粘贴到这里即可，一次只支持一个up主的视频。
+
+不会导出up所有视频或音频，实际数量由视频时长决定，如有更多需求请联系群主`,
 				value: '',
 				code: ''
 			}
@@ -151,6 +156,9 @@
 				if(type == 2) {
 					this.hint = this.type2Hint
 				}
+				if(type == 3) {
+					this.hint = this.type3Hint
+				}
 			},
 			submita(e) {
 				let subscribeDetails = JSON.parse(e.detail.subscribeDetails); // 全部的模板
@@ -167,7 +175,7 @@
 						console.log("请求任务", response)
 						if (response.data != null) {
 							this.value = ''
-							this.$message.success({message: `解析到${response.data}个视频，开始处理！请关注服务通知`, duration:8000});
+							this.$message.success({message: `${response.data}`, duration:8000});
 						} else {
 							if(response.code == 702 || response.code == 703) {
 								// 认证错误
