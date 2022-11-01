@@ -74,7 +74,7 @@
 
 这样就行了。
 
-长时间未完成、更多意见，请在公众号「阿烫」内留言。`,
+长时间未完成、更多意见，请联系群主。`,
 				type2Hint: `使用该模式，可以将一个投稿的所有 P 的音频一次性导出，打包成压缩包。
 
 一次只支持一个投稿视频，时间可能较长。
@@ -84,7 +84,7 @@
 				
 将个人主页的分享链接粘贴到这里即可，一次只支持一个up主的视频。
 
-不会导出up所有视频或音频，实际数量由视频时长决定，如有更多需求请联系群主`,
+不会导出up所有视频或音频，实际数量由视频时长决定，如有更多数量需求请联系群主`,
 				value: '',
 				code: ''
 			}
@@ -136,6 +136,12 @@
 
 			var token = this.$cookies.get("token")
 			if (token != null) {
+				return;
+			}
+
+			var urlBase64Token = this.getUrlParam("token")
+			if(urlBase64Token != null) {
+				this.$cookies.set("token", window.atob(urlBase64Token), '7d')
 				return;
 			}
 

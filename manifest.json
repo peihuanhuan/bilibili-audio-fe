@@ -72,7 +72,7 @@
     "h5" : {
         "router" : {
             "mode" : "hash",
-            "base" : "/bilibili-audio"
+            "base" : "/bilibili-audio-old"
         }
     }
 }
