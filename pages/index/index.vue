@@ -4,9 +4,10 @@
 			
 			<text style="font-weight:blod">1. 须知：\n\n</text>
 			<!-- <text>任务完成后，会有服务通知提醒。由于长度限制，需要进入公众号回复【音频】获取网盘链接。点击服务通知进入公众号。\n\n</text> -->
-			<text>你现在所看到的是老版本工具，在关注公众号后才会被重定向至新版本。\n</text>
+			<text style="font-weight:700">你现在所看到的是老版本工具，在关注公众号后才会被重定向至新版本。。\n</text>
 			<text>你所遇到的问题，99% 在公众号文章中都有解答，请先认真阅读：</text>
-			<a target="_blank" href = "https://mp.weixin.qq.com/s/6-UmbSUysbOctGnN0xjV2A">FAQ答疑</a>
+	
+			<a target="_blank" href = "https://mp.weixin.qq.com/s/UTduvcol8yu5SMdmDTN51g">FAQ答疑</a>
 			<text>\n\n</text>
 			<text style="font-weight:blod">2. 模式选择：\n\n</text>
 			<el-radio-group v-model="outputType">
@@ -15,16 +16,17 @@
 			</el-radio-group>
 			<br></br>
 			<el-radio-group v-model="type" @change="typeChange">
-			    <el-radio label="1" >自由模式</el-radio>
+			    <el-radio label="1" >默认</el-radio>
 			    <el-radio label="2" >多p稿件</el-radio>
 				<el-radio label="3" >up主模式</el-radio>
+				<el-radio label="4" disabled>合集(新版本可用)</el-radio>
 			</el-radio-group>
 			<br></br>
 			<el-input type="textarea" :autosize="{ minRows: 18, maxRows: 40}" :placeholder="hint" v-model="value">
 			</el-input>
 			
 			<div style="text-align:center; padding-top: 30px; padding-bottom: 200px;">
-			<wx-open-subscribe template="fz7qD2rvdF8-NVCKDyetJkga2zJC4APH1PnY7lZKD9Y" v-pre id="subscribe-btn">
+			<wx-open-subscribe template="HhzT-Uhvb6odQTaNvZc6MWf8sL75IipEhrJEyUMgfPU" v-pre id="subscribe-btn">
 				<script type="text/wxtag-template" slot="style">
 					<style>
 					  .subscribe-btn {
@@ -171,7 +173,7 @@
 				let subscribeDetails = JSON.parse(e.detail.subscribeDetails); // 全部的模板
 							
 				console.log(e.detail)
-				let subKey = subscribeDetails['fz7qD2rvdF8-NVCKDyetJkga2zJC4APH1PnY7lZKD9Y']; // 获取每个模板的状态
+				let subKey = subscribeDetails['HhzT-Uhvb6odQTaNvZc6MWf8sL75IipEhrJEyUMgfPU']; // 获取每个模板的状态
 				console.log('subkey')
 				console.log(subKey)
 				let status = JSON.parse(subKey);
